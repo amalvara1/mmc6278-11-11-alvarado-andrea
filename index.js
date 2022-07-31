@@ -19,10 +19,11 @@ const makePoemHTML = ([
 const createTitle = makeTag('h2')(title)
 const byTag = makeTag('em')
 const authorTag = makeTag('h3')
-const stanzaTag = makeTag('p')
-const showAuthor = pipe(byTag, authorTag)
+const showAuthor = pipe(byTag, authorTag)(`by ${author}`)
 
+const breakTag = makeTag('p')
 
+return `${createTitle}${showAuthor}${poemEl}${breakTag}`
 }
 
 // attach a click event to #get-poem
