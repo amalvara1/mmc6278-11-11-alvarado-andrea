@@ -20,10 +20,31 @@ const createTitle = makeTag('h2')(title)
 const byTag = makeTag('em')
 const authorTag = makeTag('h3')
 const showAuthor = pipe(byTag, authorTag)(`by ${author}`)
+const linesTag = makeTag('p')(lines)
 
-const breakTag = makeTag('p')
 
-return `${createTitle}${showAuthor}${poemEl}${breakTag}`
+let stanza = []
+let poemArr = []
+
+lines.forEach((line,index) => {
+  if(!line){
+    poemArr.push(stanza)
+    stanza= []
+  } else if (index === lines.length -1) {
+    stanza.push(line)
+    poemArr.push(stanza)
+  } else {
+    stanza.push(line)
+  } 
+});
+
+let string = ""
+poemArr.forEach( bArr => {
+  string+=makeTag("p")(bArr.join('<br>'))
+})
+
+
+return `${createTitle}${showAuthor}${string}`
 }
 
 // attach a click event to #get-poem
